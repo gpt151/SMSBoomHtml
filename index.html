@@ -3,97 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>验证码</title>
+    <title>Minecraft启动器Fabric安装教程 - PCL2 & HMCL</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 25px;
+            color: #333;
+            background-color: #f5f5f5;
         }
-        .container {
+        h1 {
+            color: #2e7d32;
             text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #4caf50;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
         }
-        #captcha {
-            font-size: 24px;
+        h2 {
+            color: #388e3c;
+            margin-top: 40px;
+            border-left: 5px solid #4caf50;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #2e7d32;
+            margin-top: 25px;
+        }
+        .launcher-section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 35px;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        .step:last-child {
+            border-bottom: none;
+        }
+        .note {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .warning {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 12px 25px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
             font-weight: bold;
-            margin-top: 20px;
-        }
-        input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-            width: 150px;
-        }
-        input[type="button"] {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 10px;
             cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
-        body {
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none;    /* Firefox */
-            -ms-user-select: none;     /* Internet Explorer/Edge */
-            user-select: none;         /* Non-prefixed version, currently */
+        .download-btn:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
         }
-
-      
-        input[type="text"] {
-            -webkit-user-select: text; /* Safari */
-            -moz-user-select: text;    /* Firefox */
-            -ms-user-select: text;     /* Internet Explorer/Edge */
-            user-select: text;         /* Non-prefixed version, currently */
+        .btn-group {
+            text-align: center;
+            margin: 25px 0;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 15px;
+        }
+        img {
+            max-width: 90%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .screenshot {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding-left: 25px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: #e8f5e9;
+        }
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .launcher-features {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .feature-card {
+            width: 48%;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>请输入验证码</h1>
-    <div id="captcha"></div>
-    <input type="text" id="captchaInput" placeholder="输入验证码">
-    <input type="button" value="验证" onclick="validateCaptcha()">
-</div>
-
-<script>
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let captchaText = '';
-
-    function generateCaptcha() {
-        captchaText = '';
-        for (let i = 0; i < 6; i++) {
-            captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        document.getElementById('captcha').innerText = captchaText;
-    }
-
-    function validateCaptcha() {
-        const userInput = document.getElementById('captchaInput').value;
-        if (userInput === captchaText) {
-            alert('验证成功！');
-            window.location.href = 'http://47.109.195.152:5244'; // 
-        } else {
-            alert('验证码错误，请重试。');
-            generateCaptcha(); 
-        }
-    }
-
- 
-    document.addEventListener('contextmenu', function(event) {
-        event.preventDefault();
-    });
-
-
-    generateCaptcha();
-</script>
-
+    <h1>Minecraft启动器Fabric安装教程<br><small>PCL2 & HMCL 详细指南</small></h1>
+    
+    <div class="note">
+        <p>本教程适用于 Minecraft Java 版 1.14 及以上版本，涵盖 PCL2 和 HMCL 两大主流第三方启动器的 Fabric 安装方法。</p>
+    </div>
+    
+    <div class="launcher-section">
+        <h2>PCL2 启动器安装 Fabric 教程</h2>
+        
+        <div class="step">
+            <h3>1. 下载并安装 PCL2 启动器</h3>
+            <div class="btn-group">
+                <a href="https://afdian.net/@LTCat" class="download-btn" target="_blank">下载 PCL2</a>
+                <a href="https://www.mcbbs.net/thread-1168725-1-1.html" class="download-btn" target="_blank">MCBBS 下载</a>
+            </div>
+            <ol>
+                <li>PCL2 是国产优秀启动器，无需安装 Java 即可运行</li>
+                <li>下载后解压到任意文件夹（建议不要放在系统盘）</li>
+                <li>双击 <code>PCL2.exe</code> 运行启动器</li>
+            </ol>
+            <img src="https://i.imgur.com/pCL2Main.png" alt="PCL2启动器主界面">
+            <p class="screenshot">PCL2 启动器主界面</p>
+        </div>
+        
+        <div class="step">
+            <h3>2. 下载 Minecraft 游戏版本</h3>
+            <ol>
+                <li>在 PCL2 主界面点击"下载游戏"</li>
+                <li>选择你想安装的 Minecraft 版本（建议 1.16.5 或更高）</li>
+                <li>点击右侧的"安装"按钮</li>
+                <li>等待下载和安装完成</li>
+            </ol>
+            <img src="https://i.imgur.com/pCL2Download.png" alt="PCL2下载游戏界面">
+        </div>
+        
+        <div class="step">
+            <h3>3. 安装 Fabric Loader</h3>
+            <ol>
+                <li>返回主界面，点击"版本设置"</li>
+                <li>选择你刚安装的游戏版本</li>
+                <li>点击"安装 Fabric"按钮</li>
+                <li>在弹出的窗口中选择 Fabric 版本（建议选择最新稳定版）</li>
+                <li>点击"确定"开始安装</li>
+                <li>安装完成后会生成一个带 Fabric 后缀的新版本</li>
+            </ol>
+            <img src="https://i.imgur.com/pCL2Fabric.png" alt="PCL2安装Fabric界面">
+            <div class="note">
+                <p><strong>提示：</strong> PCL2 会自动处理 Fabric API 的安装，无需手动下载。</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>4. 安装模组</h3>
+            <ol>
+                <li>在 PCL2 主界面点击"下载模组"</li>
+                <li>搜索你想要的模组（确保选择 Fabric 版本）</li>
+                <li>点击"下载"按钮</li>
+                <li>或者手动下载模组文件(.jar)后，放入：
+                    <code>游戏目录/mods</code> 文件夹
+                </li>
+                <li>启动游戏时选择带有 Fabric 的版本</li>
+            </ol>
+            <img src="https://i.imgur.com/pCL2Mods.png" alt="PCL2模组管理界面">
+            <div class="warning">
+                <p><strong>注意：</strong> 确保所有模组都兼容你安装的 Minecraft 和 Fabric 版本。</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="launcher-section">
+        <h2>HMCL 启动器安装 Fabric 教程</h2>
+        
+        <div class="step">
+            <h3>1. 下载并安装 HMCL 启动器</h3>
+            <div class="btn-group">
+                <a href="https://hmcl.huangyuhui.net/download/" class="download-btn" target="_blank">官方下载</a>
+                <a href="https://www.mcbbs.net/thread-142335-1-1.html" class="download-btn" target="_blank">MCBBS 下载</a>
+            </div>
+            <ol>
+                <li>HMCL 是开源免费的启动器，需要 Java 环境</li>
+                <li>下载后得到 <code>.jar</code> 文件，双击运行（需已安装 Java）</li>
+                <li>首次运行会要求设置游戏目录（建议新建文件夹）</li>
+            </ol>
+            <img src="https://i.imgur.com/HMCLMain.png" alt="HMCL启动器主界面">
+        </div>
+        
+        <div class="step">
+            <h3>2. 下载 Minecraft 游戏版本</h3>
+            <ol>
+                <li>点击主界面"游戏列表"下方的"安装新游戏版本"</li>
+                <li>选择你想安装的 Minecraft 版本</li>
+                <li>点击"安装"按钮</li>
+                <li>等待下载完成</li>
+            </ol>
+            <img src="https://i.imgur.com/HMCLDownload.png" alt="HMCL下载游戏界面">
+        </div>
+        
+        <div class="step">
+            <h3>3. 安装 Fabric Loader</h3>
+            <ol>
+                <li>返回主界面，点击"安装新游戏版本"</li>
+                <li>切换到"安装 Fabric"标签页</li>
+                <li>选择 Minecraft 版本和 Fabric 版本</li>
+                <li>点击"安装"按钮</li>
+                <li>安装完成后会生成一个新的 Fabric 版本</li>
+            </ol>
+            <img src="https://i.imgur.com/HMCLFabric.png" alt="HMCL安装Fabric界面">
+            <div class="note">
+                <p><strong>提示：</strong> HMCL 也可以安装 Forge 和 Quilt，方法类似。</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>4. 安装 Fabric API 和模组</h3>
+            <ol>
+                <li>在 HMCL 主界面点击"模组管理"</li>
+                <li>点击"下载模组"可以自动搜索和下载 Fabric API 及其他模组</li>
+                <li>或者手动下载模组文件(.jar)后，拖入模组管理界面</li>
+                <li>确保 Fabric API 是最新版本且与其他模组兼容</li>
+                <li>启动游戏时选择 Fabric 版本</li>
+            </ol>
+            <img src="https://i.imgur.com/HMCLMods.png" alt="HMCL模组管理界面">
+            <div class="warning">
+                <p><strong>注意：</strong> HMCL 可以自动解决部分模组依赖关系，但冲突的模组仍需手动处理。</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="launcher-section">
+        <h2>PCL2 与 HMCL 功能对比</h2>
+        
+        <table class="comparison-table">
+            <tr>
+                <th>功能</th>
+                <th>PCL2</th>
+                <th>HMCL</th>
+            </tr>
+            <tr>
+                <td>中文支持</td>
+                <td>✔ 完美中文</td>
+                <td>✔ 多语言支持</td>
+            </tr>
+            <tr>
+                <td>Java 要求</td>
+                <td>❌ 无需单独安装</td>
+                <td>✔ 需要 Java</td>
+            </tr>
+            <tr>
+                <td>Fabric 安装</td>
+                <td>✔ 一键安装</td>
+                <td>✔ 一键安装</td>
+            </tr>
+            <tr>
+                <td>模组管理</td>
+                <td>✔ 内置下载</td>
+                <td>✔ 更强大的管理</td>
+            </tr>
+            <tr>
+                <td>自动更新</td>
+                <td>✔ 自动更新</td>
+                <td>✔ 手动检查更新</td>
+            </tr>
+            <tr>
+                <td>跨平台</td>
+                <td>❌ 仅 Windows</td>
+                <td>✔ Windows/macOS/Linux</td>
+            </tr>
+        </table>
+        
+        <div class="launcher-features">
+            <div class="feature-card">
+                <h3>PCL2 特色功能</h3>
+                <ul>
+                    <li>内置高速下载源</li>
+                    <li>集成 OptiFine 安装</li>
+                    <li>简洁直观的界面</li>
+                    <li>自动内存优化</li>
+                    <li>账号多开支持</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>HMCL 特色功能</h3>
+                <ul>
+                    <li>开源免费</li>
+                    <li>跨平台支持</li>
+                    <li>强大的模组管理</li>
+                    <li>支持自定义 JVM 参数</li>
+                    <li>丰富的插件扩展</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="launcher-section">
+        <h2>常见问题解答</h2>
+        
+        <h3>Q1: 安装 Fabric 后游戏崩溃怎么办？</h3>
+        <div class="tab">
+            <ol>
+                <li>检查崩溃日志（在 <code>crash-reports</code> 文件夹）</li>
+                <li>尝试移除最近添加的模组</li>
+                <li>确保 Fabric Loader 和 API 是最新版本</li>
+                <li>在 PCL2/HMCL 中尝试修复游戏</li>
+            </ol>
+        </div>
+        
+        <h3>Q2: 如何更新 Fabric 版本？</h3>
+        <div class="tab">
+            <p><strong>PCL2:</strong> 在"版本设置"中重新安装 Fabric</p>
+            <p><strong>HMCL:</strong> 在"安装新游戏版本"中选择新版 Fabric</p>
+        </div>
+        
+        <h3>Q3: 模组不显示或不起作用？</h3>
+        <div class="tab">
+            <ol>
+                <li>确认模组文件在正确的 <code>mods</code> 文件夹</li>
+                <li>检查模组是否与当前 Minecraft 和 Fabric 版本兼容</li>
+                <li>确保你选择了正确的 Fabric 版本启动游戏</li>
+                <li>有些模组需要额外的库文件（如 Fabric API）</li>
+            </ol>
+        </div>
+        
+        <div class="btn-group">
+            <a href="fabric_modpack.zip" class="download-btn">下载模组包</a>
+            <a href="https://www.bilibili.com/opus/750504170348347443" class="download-btn">图文教程</a>
+        </div>
+    </div>
 </body>
 </html>
